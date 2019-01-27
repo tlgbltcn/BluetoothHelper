@@ -45,7 +45,7 @@ dependencies {
 - If you want to get a list of the bluetooth devices around you, you should use setPermission (true). Automatically request location permission for you
 
 ```kotlin
-     val bluetoothHelper = BluetoothHelper(this, this)
+   val bluetoothHelper = BluetoothHelper(this, this)
             .setPermissionRequired(true)
             .create()  
 ```
@@ -53,57 +53,57 @@ dependencies {
 - You have some commitment to handle the lifecycle BluetoothHelper to work properly
 
 ```kotlin
-     override fun onResume() {
+   override fun onResume() {
         super.onResume()
         bluetoothHelper.registerBluetoothStateChanged()
-    }
-    override fun onPause() {
+   }
+   override fun onPause() {
         super.onPause()
         bluetoothHelper.unregisterBluetoothStateChanged()
-    } 
+   } 
 ```
 
 - Turn Bluetooth on and off
 
-```kotlin
-    enable_disable.setOnClickListener {
+```kotlin  
+   enable_disable.setOnClickListener {
             if (bluetoothHelper.isBluetoothEnabled()) bluetoothHelper.disableBluetooth()
             else bluetoothHelper.enableBluetooth()
-    }
+   }
 ```
 
 - Instructions for locating devices
 
 ```kotlin
-    start_stop.setOnClickListener {
+   start_stop.setOnClickListener {
             if (bluetoothHelper.isBluetoothScanning()) bluetoothHelper.stopDiscovery()
             else bluetoothHelper.startDiscovery()
-    }
+   }
 ```
 
 - And finally, you can update the UI in the following methods using the BluetoothHelperListener interface.
 
 ```kotlin
-    override fun onStartDiscovery() {
+   override fun onStartDiscovery() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+   }
 
-    override fun onFinishDiscovery() {
+   override fun onFinishDiscovery() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+   }
 
-    override fun onEnabledBluetooth() {
+   override fun onEnabledBluetooth() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+   }
 
-    override fun onDisabledBluetooh() {
+   override fun onDisabledBluetooh() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+   }
 
-    override fun getBluetoothDeviceList(device: BluetoothDevice) {
+   override fun getBluetoothDeviceList(device: BluetoothDevice) {
         itemList.add(BluetoothDeviceModel(device.name, device.address))
         viewAdapter.notifyDataSetChanged()
-    }
+   }
 ```
 
 
