@@ -1,5 +1,9 @@
 Bluetooth Helper
 =============
+[![](https://jitpack.io/v/tlgbltcn/BluetoothHelper.svg)](https://jitpack.io/#tlgbltcn/BluetoothHelper)
+[![API](https://img.shields.io/badge/API-15%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=15)
+[![ktlint](https://img.shields.io/badge/code%20style-%E2%9D%A4-FF4081.svg)](https://ktlint.github.io/)
+
 
 Allows you to access the Bluetooth of your mobile device, manage turn-on - turn off, and discover bluetooth devices around you.
 
