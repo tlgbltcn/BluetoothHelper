@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_marginStart="8dp"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="8dp"
+    android:layout_marginEnd="8dp"
+    android:layout_marginTop="4dp"
+    android:layout_marginBottom="4dp"
+    android:id="@+id/relativeLayout">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:id="@+id/imageView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:src="@drawable/bg_bluetooth_device"
+        app:layout_constraintVertical_bias="1.0"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/device_name"
+        android:layout_width="wrap_content"
+        android:layout_height="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginStart="24dp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="8dp"
+        tools:text="General Mobile 9 Pro"
+        app:layout_constraintStart_toEndOf="@+id/imageView"/>
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/macAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="12:2334:DS:345"
+        app:layout_constraintTop_toBottomOf="@+id/device_name"
+        app:layout_constraintStart_toEndOf="@+id/imageView"
+        android:layout_marginLeft="24dp"
+        android:layout_marginStart="24dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
