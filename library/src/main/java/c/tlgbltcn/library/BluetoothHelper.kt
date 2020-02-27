@@ -14,7 +14,14 @@ import android.os.Build
 class BluetoothHelper(private val context: Context, private val listener: BluetoothHelperListener) {
 
     private val mBluetoothAdapter by lazy {
-        return@lazy BluetoothAdapter.getDefaultAdapter()
+        BluetoothAdapter.getDefaultAdapter()?.let {
+            return@lazy it
+        } ?: run {
+            throw RuntimeException("Bluetooth is not supported on this hardware platform. " +
+                    "Make sure you try it from the real device\n " +
+                    "You could more information from here:\n" +
+                    "https://developer.android.com/reference/android/bluetooth/BluetoothAdapter")
+        }
     }
 
     private var isRequiredPermission = false
@@ -105,10 +112,10 @@ class BluetoothHelper(private val context: Context, private val listener: Blueto
 
             if (permissionCheck != 0)
                 (context as Activity).requestPermissions(
-                    arrayOf(
-                        Manifest.permission.ACCESS_FINE_LOCATION,
-                        Manifest.permission.ACCESS_COARSE_LOCATION
-                    ), BluetoothHelperConstant.REQ_CODE
+                        arrayOf(
+                                Manifest.permission.ACCESS_FINE_LOCATION,
+                                Manifest.permission.ACCESS_COARSE_LOCATION
+                        ), BluetoothHelperConstant.REQ_CODE
                 )
         }
     }

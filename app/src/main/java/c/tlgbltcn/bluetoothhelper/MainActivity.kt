@@ -21,9 +21,9 @@ class MainActivity : AppCompatActivity(), BluetoothHelperListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        bluetoothHelper = BluetoothHelper(this, this)
-            .setPermissionRequired(true)
-            .create()
+        bluetoothHelper = BluetoothHelper(this@MainActivity, this@MainActivity)
+                .setPermissionRequired(true)
+                .create()
 
         if (bluetoothHelper.isBluetoothEnabled()) enable_disable.text = "Bluetooth State Off"
         else enable_disable.text = "Bluetooth State On"
