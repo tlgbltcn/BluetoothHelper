@@ -39,7 +39,6 @@ class BluetoothHelper(private val context: Context, private val listener: Blueto
 
             override fun onFinishDiscovering() {
                 isDiscovering = false
-                context.unregisterReceiver(mBluetoothDeviceFounderReceiver)
                 listener.onFinishDiscovery()
             }
 
