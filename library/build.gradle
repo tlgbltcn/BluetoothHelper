@@ -1,7 +1,8 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-group = 'com.github.tlgbltcn'
+apply plugin: 'maven-publish'
 
+group = 'com.github.tlgbltcn'
 
 android {
     compileSdk 31
@@ -57,4 +58,5 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     ktlint "com.github.shyiko:ktlint:0.29.0"
 }
+
 
