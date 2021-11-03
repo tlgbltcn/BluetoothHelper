@@ -3,6 +3,8 @@ apply plugin: 'kotlin-android'
 apply plugin: 'maven-publish'
 
 group = 'com.github.tlgbltcn'
+version = "1.6"
+def artifact = 'library'
 
 android {
     compileSdk 31
@@ -54,7 +56,9 @@ afterEvaluate {
         publications {
             release(MavenPublication) {
                 from components.release
-                artifactId = 'library'
+                groupId = group
+                artifactId = artifact
+                version = version
             }
         }
     }
