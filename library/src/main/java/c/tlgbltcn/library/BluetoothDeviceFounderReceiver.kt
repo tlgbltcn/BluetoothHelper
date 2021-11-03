@@ -20,5 +20,5 @@ abstract class BluetoothDeviceFounderReceiver : BroadcastReceiver() {
         }
     }
 
-    abstract fun getFoundDevices(device: BluetoothDevice)
+    abstract fun getFoundDevices(device: BluetoothDevice?)
 }

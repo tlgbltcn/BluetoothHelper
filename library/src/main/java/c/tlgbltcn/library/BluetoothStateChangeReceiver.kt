@@ -4,6 +4,7 @@ import android.bluetooth.BluetoothAdapter
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 
 /**
  * Created by tolga bolatcan on 24.01.2019
@@ -12,10 +13,9 @@ abstract class BluetoothStateChangeReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context?, intent: Intent?) {
         val action = intent?.action
-
+        val state = intent?.getIntExtra(BluetoothAdapter.EXTRA_STATE, BluetoothAdapter.ERROR)
         when (action) {
             BluetoothAdapter.ACTION_STATE_CHANGED -> {
-                val state = intent.getIntExtra(BluetoothAdapter.EXTRA_STATE, BluetoothAdapter.ERROR)
 
                 when (state) {
                     BluetoothAdapter.STATE_OFF -> onDisabledBluetooth()

@@ -2,9 +2,9 @@ package c.tlgbltcn.bluetoothhelper
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.item_bluetooth_device.view.*
+import c.tlgbltcn.bluetoothhelper.databinding.ItemBluetoothDeviceBinding
+import java.util.*
 
 /**
  * Created by tolga bolatcan on 26.01.2019
@@ -13,18 +13,21 @@ class BluetoothListAdapter(private var item: ArrayList<BluetoothDeviceModel>) :
     RecyclerView.Adapter<BluetoothListAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_bluetooth_device, parent, false)
-        return ViewHolder(view as ConstraintLayout)
+        val binding =
+            ItemBluetoothDeviceBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ViewHolder(binding)
     }
 
     override fun getItemCount() = item.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.view.apply {
-            device_name.text = item[position].name
-            macAddress.text = item[position].macNumber
-        }
+        holder.bind(item[position].name ?: "", item[position].macNumber ?: "")
     }
 
-    class ViewHolder(val view: ConstraintLayout) : RecyclerView.ViewHolder(view)
+    class ViewHolder(val view: ItemBluetoothDeviceBinding) : RecyclerView.ViewHolder(view.root) {
+        fun bind(name: String, macNumber: String) {
+            view.deviceName.text = name
+            view.macAddress.text = macNumber
+        }
+    }
 }

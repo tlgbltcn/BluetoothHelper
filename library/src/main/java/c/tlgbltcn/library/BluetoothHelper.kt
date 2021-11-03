@@ -4,6 +4,7 @@ import android.Manifest
 import android.app.Activity
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothDevice
+import android.bluetooth.BluetoothManager
 import android.content.Context
 import android.content.IntentFilter
 import android.os.Build
@@ -14,13 +15,20 @@ import android.os.Build
 class BluetoothHelper(private val context: Context, private val listener: BluetoothHelperListener) {
 
     private val mBluetoothAdapter by lazy {
-        BluetoothAdapter.getDefaultAdapter()?.let {
+
+        val bluetoothManager =
+            context.getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager
+        bluetoothManager.getAdapter()
+
+        bluetoothManager.adapter?.let {
             return@lazy it
         } ?: run {
-            throw RuntimeException("Bluetooth is not supported on this hardware platform. " +
-                    "Make sure you try it from the real device\n " +
-                    "You could more information from here:\n" +
-                    "https://developer.android.com/reference/android/bluetooth/BluetoothAdapter")
+            throw RuntimeException(
+                "Bluetooth is not supported on this hardware platform. " +
+                        "Make sure you try it from the real device\n " +
+                        "You could more information from here:\n" +
+                        "https://developer.android.com/reference/android/bluetooth/BluetoothAdapter"
+            )
         }
     }
 
@@ -56,7 +64,7 @@ class BluetoothHelper(private val context: Context, private val listener: Blueto
 
     private val mBluetoothDeviceFounderReceiver by lazy {
         object : BluetoothDeviceFounderReceiver() {
-            override fun getFoundDevices(device: BluetoothDevice) {
+            override fun getFoundDevices(device: BluetoothDevice?) {
                 listener.getBluetoothDeviceList(device)
             }
         }
@@ -89,7 +97,11 @@ class BluetoothHelper(private val context: Context, private val listener: Blueto
     fun startDiscovery() {
         if (isEnabled && !isDiscovering) {
             mBluetoothAdapter.startDiscovery()
-            val discoverDevicesIntent = IntentFilter(BluetoothDevice.ACTION_FOUND)
+            val discoverDevicesIntent = IntentFilter().apply {
+                addAction(BluetoothAdapter.ACTION_DISCOVERY_STARTED)
+                addAction(BluetoothDevice.ACTION_FOUND)
+                addAction(BluetoothAdapter.ACTION_DISCOVERY_FINISHED)
+            }
             context.registerReceiver(mBluetoothDeviceFounderReceiver, discoverDevicesIntent)
         }
     }
@@ -102,15 +114,16 @@ class BluetoothHelper(private val context: Context, private val listener: Blueto
 
     private fun checkBTPermissions() {
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
-            var permissionCheck = context.checkSelfPermission(BluetoothHelperConstant.ACCESS_FINE_LOCATION)
+            var permissionCheck =
+                context.checkSelfPermission(BluetoothHelperConstant.ACCESS_FINE_LOCATION)
             permissionCheck += context.checkSelfPermission(BluetoothHelperConstant.ACCESS_COARSE_LOCATION)
 
             if (permissionCheck != 0)
                 (context as Activity).requestPermissions(
-                        arrayOf(
-                                Manifest.permission.ACCESS_FINE_LOCATION,
-                                Manifest.permission.ACCESS_COARSE_LOCATION
-                        ), BluetoothHelperConstant.REQ_CODE
+                    arrayOf(
+                        Manifest.permission.ACCESS_FINE_LOCATION,
+                        Manifest.permission.ACCESS_COARSE_LOCATION
+                    ), BluetoothHelperConstant.REQ_CODE
                 )
         }
     }

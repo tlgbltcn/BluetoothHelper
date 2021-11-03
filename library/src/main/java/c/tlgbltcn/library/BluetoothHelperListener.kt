@@ -15,5 +15,5 @@ interface BluetoothHelperListener {
 
     fun onDisabledBluetooh()
 
-    fun getBluetoothDeviceList(device: BluetoothDevice)
+    fun getBluetoothDeviceList(device: BluetoothDevice?)
 }
