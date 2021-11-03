@@ -54,9 +54,7 @@ afterEvaluate {
         publications {
             release(MavenPublication) {
                 from components.release
-                groupId = "com.github.tlgbltcn"
                 artifactId = 'library'
-                version = version
             }
         }
     }
