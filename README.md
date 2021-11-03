@@ -43,7 +43,7 @@ allprojects {
 - Add it in app build.gradle
 ```gradle
 dependencies {
-	        implementation 'com.github.tlgbltcn:BluetoothHelper:v1.0'
+	        implementation 'com.github.tlgbltcn:BluetoothHelper:v1.7'
 	}
 ```
 
