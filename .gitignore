@@ -42,4 +42,3 @@ proguard/s
 .externalNativeBuild
 /apk
 .idea/encodings.xml
-/gradle.properties
